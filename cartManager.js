@@ -65,11 +65,11 @@ class CartManager{
 
     createCart(cartId, cartProducts) {
         const newCart = {
-            id: ++this.cartId,
+            id: cartId || ++this.cartId,  
             products: cartProducts
         };
-        this.cart.push(newCart);  
-        this.saveCart();      
+        this.cart.push(newCart);
+        this.saveCart();
         return newCart;
     }
 
@@ -79,7 +79,7 @@ class CartManager{
     // buscar por id
 
     getCartById(id){
-        const cartId = this.cart.find(cart => cart.id === id);
+        const cartId = this.cart.find(cart => cart.id === parseInt(id));    
 
         if (cartId){
             return cartId;
@@ -87,11 +87,37 @@ class CartManager{
             console.log("el id ingresado no existe");
         }
 
+       
 
     }
 
    
+//agreagr al carrito
 
+async addToCart(cartId, productId, quantity) {
+    try {
+        const cart = this.cart.find(c => c.id === cartId);
+        if (!cart) {
+            console.log("El carrito no existe.");
+            return;
+        }
+
+        const productIndex = cart.products.findIndex(p => p.product === productId);
+
+        if (productIndex !== -1) {
+            // Si el producto ya existe, sumalo
+            cart.products[productIndex].quantity += quantity;
+        } else {
+            // Si el producto no existe en el carrito, pushealo
+            cart.products.push({ product: productId, quantity });
+        }
+
+        this.saveCart();
+        console.log("Producto agregado al carrito correctamente.");
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 
 

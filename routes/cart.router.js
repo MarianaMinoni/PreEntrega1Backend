@@ -68,6 +68,26 @@ router.get("/:cid", async (req, res) => {
 
 
 
+
+router.post("/:cid/product/:pid", async (req, res) => {
+    try {
+        const cartId = parseInt(req.params.cid);
+        const productId = parseInt(req.params.pid);
+        const quantity = parseInt(req.body.quantity);
+
+        if (isNaN(cartId) || isNaN(productId) || isNaN(quantity)) {
+            return res.status(400).send("Todos los campos son requeridos.");
+        }
+
+        await cartManager.addToCart(cartId, productId, quantity);
+        res.status(201).send("Producto agregado al carrito");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error del servidor");
+    }
+});
+
+
 module.exports = router;
 
 
