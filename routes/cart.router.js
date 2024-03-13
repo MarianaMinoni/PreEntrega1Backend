@@ -23,7 +23,7 @@ tambien si es un producto ya existente al carrito, sumarle la cantidad sin repet
 
 */
 
-
+//TRAER TODOS LOS CARRITOS EXISTENTER // funciona ok
 
 router.get("/", async (req , res) => {
     let cart = await cartManager.getProducts()
@@ -32,6 +32,7 @@ router.get("/", async (req , res) => {
 
 
 
+// CREAR CARRITO // funciona ok
 router.post("/", async (req , res) => {
     try{
         const {id, products} = req.body
@@ -49,7 +50,7 @@ router.post("/", async (req , res) => {
 });
 
 
-
+// TRAER EL CARRITO CON EL ID INDICADO // funciona ok
 
 router.get("/:cid", async (req, res) => {
     try {
@@ -67,7 +68,7 @@ router.get("/:cid", async (req, res) => {
 });
 
 
-
+//funciona ok
 
 router.post("/:cid/product/:pid", async (req, res) => {
     try {

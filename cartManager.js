@@ -54,7 +54,7 @@ class CartManager{
 
     async saveCart(){
         try{
-            await fs.promises.writeFile(this.path, JSON.stringify(this.cart, null, 2), "utf-8");
+            await fs.promises.writeFile(this.path, JSON.stringify(this.cart, null, "\t"), "utf-8");
             console.log("productos guardados correctamente");
         } catch(err){
             console.log(err);
@@ -66,7 +66,7 @@ class CartManager{
     createCart(cartId, cartProducts) {
         const newCart = {
             id: cartId || ++this.cartId,  
-            products: cartProducts
+            products: cartProducts || []
         };
         this.cart.push(newCart);
         this.saveCart();
@@ -102,13 +102,13 @@ async addToCart(cartId, productId, quantity) {
             return;
         }
 
-        const productIndex = cart.products.findIndex(p => p.product === productId);
+        const productIndex = cart.products.findIndex(p => p.id === productId);
 
         if (productIndex !== -1) {
-            // Si el producto ya existe, sumalo
+            // Si el producto ya existe, lo sumo
             cart.products[productIndex].quantity += quantity;
         } else {
-            // Si el producto no existe en el carrito, pushealo
+            // Si el producto no existe en el carrito, lo pusheo
             cart.products.push({ product: productId, quantity });
         }
 

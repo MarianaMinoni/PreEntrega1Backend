@@ -6,7 +6,7 @@ const router = express.Router()
 
 
 
-//TRAER TODOS LOS PRODUCTOS
+//TRAER TODOS LOS PRODUCTOS // funciona ok
 router.get("/", async (req, res) => {
     try{
         let products = await productManager.getProducts();
@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
     }
 })
 
-//TRAER POR ID ok
+//TRAER POR ID ok // funciona ok
 router.get('/:pid', async(req,res) => {
     let id = req.params.pid;
     try{
@@ -35,7 +35,7 @@ router.get('/:pid', async(req,res) => {
         }
  })
 
- //AGREGAR UN PRODUCTO OK
+ //AGREGAR UN PRODUCTO OK // funciona ok
 
 
  router.post('/:pid', (req, res)=>{
@@ -47,7 +47,7 @@ router.get('/:pid', async(req,res) => {
     
  })
 
- // UPDATE UN PRODUCTO 
+ // UPDATE UN PRODUCTO // funciona ok
 
  router.put('/:pid', (req, res) => {
     let id = parseInt(req.params.pid);
@@ -67,7 +67,7 @@ router.get('/:pid', async(req,res) => {
 });
 
 
-//BORRAR UN PRODUCTO
+//BORRAR UN PRODUCTO // funciona ok
 
 router.delete('/:pid', (req, res) => {
     let id = parseInt(req.params.pid);

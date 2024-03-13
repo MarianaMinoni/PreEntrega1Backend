@@ -19,7 +19,7 @@ class ProductManager{
      // METODO GUARDAR PRODUCTOS
      async saveProducts() {
         try {
-            await fs.promises.writeFile(this.path, JSON.stringify(this.products, null, 2), 'utf-8');
+            await fs.promises.writeFile(this.path, JSON.stringify(this.products, null, "\t"), 'utf-8');
             console.log('productos guardados correctamente');
         } catch (err) {
             console.log(err);

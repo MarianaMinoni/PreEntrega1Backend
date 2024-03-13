@@ -8,6 +8,7 @@ const routerCarts = require("./routes/cart.router")
 
 
 app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 
 app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
@@ -15,7 +16,7 @@ app.use("/api/carts", routerCarts);
 
 
 
-//reglas
+//reglas para ver si funciona ok
 
 app.get("/ping", (req, res) => {
     res.send("pong")
