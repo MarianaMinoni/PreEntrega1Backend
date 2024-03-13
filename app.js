@@ -15,7 +15,6 @@ app.use("/api/carts", routerCarts);
 
 
 
-
 //reglas para ver si funciona ok
 
 app.get("/ping", (req, res) => {

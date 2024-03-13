@@ -5,7 +5,6 @@ id: Number
 products: [array de productos en el carro] (get products)
 
 
-
 la ruta GET/:cid debe listar los productos que pertenezcan al carrito con el id proporcionado
 (buscar x id) =>
  el producto x id que este en el carro
@@ -18,8 +17,6 @@ product[id, q] (quantity), solo esos dos parametros
 si el id existe, no repetir
 
 tambien si es un producto ya existente al carrito, sumarle la cantidad sin repetir el producto
-
-
 
 
 */
@@ -74,8 +71,6 @@ class CartManager{
     }
 
 
-
-
     // buscar por id
 
     getCartById(id){
@@ -86,8 +81,7 @@ class CartManager{
         } else{
             console.log("el id ingresado no existe");
         }
-
-       
+     
 
     }
 
@@ -118,10 +112,6 @@ async addToCart(cartId, productId, quantity) {
         console.error(err);
     }
 }
-
-
-
-
 }
 
 
