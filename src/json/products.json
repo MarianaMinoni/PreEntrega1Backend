@@ -20,16 +20,6 @@
 		"category": "pantalones"
 	},
 	{
-		"id": 2,
-		"title": "mini falda",
-		"description": "pollera tableada corta",
-		"code": "102",
-		"price": 950,
-		"status": true,
-		"stock": 16,
-		"category": "polleras"
-	},
-	{
 		"id": 3,
 		"title": "medias",
 		"description": "soquetes deportivos",
@@ -38,5 +28,15 @@
 		"status": true,
 		"stock": 25,
 		"category": "accesorios"
+	},
+	{
+		"id": 4,
+		"title": "Titulo modificado",
+		"description": "descripcion prueba",
+		"code": "1",
+		"price": 1,
+		"status": true,
+		"stock": 2,
+		"category": "categoria"
 	}
 ]
