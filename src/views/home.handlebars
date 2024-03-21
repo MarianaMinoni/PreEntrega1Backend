@@ -1,0 +1,22 @@
+<div class="container text-center">
+  <h1>Lista de Productos</h1>
+
+  {{#each products}}
+
+  <div class="col-md-6 mb-4">
+        <div class="card">
+            <img src="" class="card-img-top" alt="Product Image">
+            <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <p class="card-text">${{this.price}}</p>
+                <p class="card-text">stock: {{this.stock}}</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+            </div>
+        </div>
+    </div>
+<br>
+<br>
+  {{/each}}
+</div>
+
+<script src="/public/js/index.js"></script>
