@@ -15,12 +15,23 @@ router.get("/", async (req, res) => {
     
 })
 
-router.get("/realtimeproducts", (req, res) => {
-    res.render("realTimeProducts", {});
-  });
+
+
+router.get("/realtimeproducts", async (req, res) => {
+    try{
+        let products = await productManager.getProducts();
+        res.render("realtimeproducts", { products })
+
+    }catch(err){
+        console.log(err);
+        res.status(500).send("Error interno del servidor");
+    }
+    
+})
+
+
+
   
-
-
   router.post("/", (req, res)=>{
     const { title, description, code, price, stock, category, thumbnail } = req.body
        
@@ -33,6 +44,8 @@ router.get("/realtimeproducts", (req, res) => {
     }
 
 })
+
+
     
    
 

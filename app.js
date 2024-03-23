@@ -31,15 +31,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
 
+
+
 //reglas para ver si funciona ok
 app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-
 socketServer.on("connection", (socket) => {
-  console.log("Nuevo cliente conectado:", socket.id);
-});
+  console.log("Nuevo cliente conectado:")
+
+  })
+
+
 
 
 
