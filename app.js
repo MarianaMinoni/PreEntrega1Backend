@@ -5,14 +5,14 @@ import __dirname from "./utils.js"
 import routerProducts from "./src/routes/products.router.js";
 import routerCarts from "./src/routes/cart.router.js";
 import viewsRouter from "./src/routes/views.router.js";
-
+import productManager from "./src/managers/productManager.js";
 
 
 const app = express();
 
 const httpServer = app.listen(8080, () => console.log("servidor funcionando"));
 
-const socketServer = new Server(httpServer);
+const io = new Server(httpServer);
 
 
 app.set("views", __dirname+"/src/views")
@@ -37,9 +37,35 @@ app.get("/ping", (req, res) => {
 });
 
 
-socketServer.on("connection", (socket) => {
-  console.log("Nuevo cliente conectado:", socket.id);
-});
+
+io.on("connection", (socket) => {
+   console.log("Nuevo cliente conectado:", socket.id)
+
+   socket.on("message", (data)=> {
+    console.log(data);
+   })
+
+
+
+   socket.on("addProduct", async (productData) => {
+    await productManager.addProduct(productData);
+    const products = await productManager.getProducts()
+    socket.emit("newList", products)
+  });
+
+  socket.on("deleteProduct", async (productId) => {
+    await productManager.deleteProduct(productId);
+    const products = await productManager.getProducts()
+    socket.emit("newList", products)
+  });
+
+  socket.on("getProducts", async () => {
+    const products = await productManager.getProducts();
+    socket.emit("newList", products);
+  });
+
+
+   })
 
 
 

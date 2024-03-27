@@ -15,6 +15,8 @@ class ProductManager {
     this.saveProducts();
   }
 
+  
+
   // METODO GUARDAR PRODUCTOS
   async saveProducts() {
     try {
@@ -139,10 +141,14 @@ class ProductManager {
 
 const productManager = new ProductManager("./src/json/products.json");
 
+productManager.addProduct('t-shirt', 'white t-shirt','1100', '100', '10', "shirts");
+productManager.addProduct('shoe', 'sports shoes','1101', '250',  '5', "shoes");
+productManager.addProduct('jeans', 'fashion white jeans', '1102','200', '3', "pants");
+productManager.addProduct('skirt', 'long skirt','1103', '150',  '16', "skirts");
 
-//productManager.getProducts(); //ok
-//productManager.deleteProduct(2) //ok
-//console.log(productManager.getProductById(0)); //ok
-//productManager.updateProduct(1, 'description', 'jean negro') //FUNCIONA OK
+
+//console.log(productManager.getProducts())//ok
+//productManager.deleteProduct(0) //ok
+//console.log(productManager.getProductById(1)); //ok
 
 export default productManager;

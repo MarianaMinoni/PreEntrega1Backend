@@ -1,6 +1,9 @@
 <div>   
 <div>
-    <form id="productForm" action="hhtp://localhost:8080/api/products" method="post">
+
+
+
+    <form id="productForm" action="../json/carts.json" method="post">
         <div class="mb-3">
             <label for="title" class="form-label">Nombre del producto</label>
             <input type="text" class="form-control" id="title" name="title">
@@ -22,10 +25,41 @@
             <input type="text" class="form-control" id="category" name="category">
         </div>
 
-        <button type="submit" id="addButton" class="btn btn-primary">Agregar</button>
+        <button onclick="send()" type="submit" id="addButton" class="btn btn-primary">Agregar</button>
     </form>
 </div>
 </div>
 
+<hr>
+
+<div id="productsList">
+
+  <div class="container text-center">
+  <h1>Lista de Productos</h1>
+
+  {{#each productsList}}
+
+  <div class="col-md-6 mb-4">
+        <div class="card">
+            <img src="" class="card-img-top" alt="Product Image">
+            <div class="card-body">
+                <h5 class="card-title">Nombre producto: {{this.title}}</h5>
+                <p class="card-text">Precio ${{this.price}}</p>
+                <p class="card-text">stock: {{this.stock}}</p>
+               </div>
+        </div>
+    </div>
+<br>
+<br>
+  {{/each}}
+</div>
+
+
+
+
+</div>
+ 
+
 <script src="/socket.io/socket.io.js"></script>
-<script src="/public/js/index.js"></script>
+
+ <script src="/js/index.js"></script> 

@@ -1,42 +1,42 @@
 [
 	{
 		"id": 0,
-		"title": "remera manga corta",
-		"description": "remera blanca estampada",
-		"code": "100",
-		"price": 1000,
+		"title": "t-shirt",
+		"description": "white t-shirt",
+		"code": "1100",
+		"price": "100",
 		"status": true,
-		"stock": 10,
-		"category": "remeras"
+		"stock": "10",
+		"category": "shirts"
 	},
 	{
 		"id": 1,
-		"title": "jean",
-		"description": "fashion jeans",
-		"code": "101",
-		"price": 1200,
+		"title": "shoe",
+		"description": "sports shoes",
+		"code": "1101",
+		"price": "250",
 		"status": true,
-		"stock": 3,
-		"category": "pantalones"
+		"stock": "5",
+		"category": "shoes"
+	},
+	{
+		"id": 2,
+		"title": "jeans",
+		"description": "fashion white jeans",
+		"code": "1102",
+		"price": "200",
+		"status": true,
+		"stock": "3",
+		"category": "pants"
 	},
 	{
 		"id": 3,
-		"title": "medias",
-		"description": "soquetes deportivos",
-		"code": "103",
-		"price": 700,
+		"title": "skirt",
+		"description": "long skirt",
+		"code": "1103",
+		"price": "150",
 		"status": true,
-		"stock": 25,
-		"category": "accesorios"
-	},
-	{
-		"id": 4,
-		"title": "Titulo modificado",
-		"description": "descripcion prueba",
-		"code": "1",
-		"price": 1,
-		"status": true,
-		"stock": 2,
-		"category": "categoria"
+		"stock": "16",
+		"category": "skirts"
 	}
 ]
