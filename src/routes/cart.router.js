@@ -2,25 +2,6 @@ import cartManager from "../managers/cartManager.js";
 import express from "express";
 const router = express.Router();
 
-/* la ruta POST '/' debe crear un carrito con esta estructura :
-id: Number
-products: [array de productos en el carro]
-
-
-
-la ruta GET/:cid debe listar los productos que pertenezcan al carrito con el id proporcionado
-
-
-la ruta POST /:cid/product/:pid deben agregar el producto al carrito con el siguiente formato:
-product[id, q] (quantity), solo esos dos parametros
-
-tambien si es un producto ya existente al carrito, sumarle la cantidad sin repetir el producto
-
-
-
-
-*/
-
 //TRAER TODOS LOS CARRITOS EXISTENTER // funciona ok
 
 router.get("/", async (req, res) => {

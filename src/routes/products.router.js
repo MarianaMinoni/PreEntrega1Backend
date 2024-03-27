@@ -50,8 +50,6 @@ router.get("/:pid", async(req,res) => {
 })
     
 
-
-
  // UPDATE UN PRODUCTO // funciona ok
 
 
