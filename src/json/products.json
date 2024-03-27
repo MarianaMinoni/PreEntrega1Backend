@@ -38,5 +38,17 @@
 		"status": true,
 		"stock": "16",
 		"category": "skirts"
+	},
+	{
+		"id": 4,
+		"title": {
+			"title": "fg",
+			"description": "dfg",
+			"code": "dfg",
+			"price": "dfg",
+			"stock": "dfg",
+			"category": "dfg"
+		},
+		"status": true
 	}
 ]

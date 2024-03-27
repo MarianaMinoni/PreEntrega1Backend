@@ -1,38 +1,45 @@
+
 <div>   
 <div>
 
 
+<h3>Ingrese un producto para agregarlo al carrito</h3>
+   <form id="productForm" method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label">Nombre del producto</label>
+        <input type="text" class="form-control" id="title" name="title">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Descripción</label>
+        <input type="text" class="form-control" id="description" name="description">
+    </div>
+    <div class="mb-3">
+        <label for="code" class="form-label">Código</label>
+        <input type="text" class="form-control" id="code" name="code">
+    </div>
+    <div class="mb-3">
+        <label for="price" class="form-label">Precio</label>
+        <input type="text" class="form-control" id="price" name="price">
+    </div>
+    <div class="mb-3">
+        <label for="stock" class="form-label">Stock</label>
+        <input type="text" class="form-control" id="stock" name="stock">
+    </div>
+    <div class="mb-3">
+        <label for="category" class="form-label">Categoría</label>
+        <input type="text" class="form-control" id="category" name="category">
+    </div>
 
-    <form id="productForm" action="../json/carts.json" method="post">
-        <div class="mb-3">
-            <label for="title" class="form-label">Nombre del producto</label>
-            <input type="text" class="form-control" id="title" name="title">
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Descripción</label>
-            <input type="text" class="form-control" id="description" name="description">
-        </div>
-         <div class="mb-3">
-            <label for="code" class="form-label">Código</label>
-            <input type="text" class="form-control" id="code" name="code">
-        </div>
-         <div class="mb-3">
-            <label for="price" class="form-label">Precio</label>
-            <input type="text" class="form-control" id="price" name="price">
-        </div>
-        <div class="mb-3">
-            <label for="text" class="form-label">Categoría</label>
-            <input type="text" class="form-control" id="category" name="category">
-        </div>
-
-        <button onclick="send()" type="submit" id="addButton" class="btn btn-primary">Agregar</button>
-    </form>
+    <button type="submit" id="addButton" class="btn btn-primary">Agregar</button>
+</form>
 </div>
 </div>
 
 <hr>
 
-<div id="productsList">
+<script src="/socket.io/socket.io.js"></script>
+
+ <div id="productsList">
 
   <div class="container text-center">
   <h1>Lista de Productos</h1>
@@ -44,22 +51,19 @@
             <img src="" class="card-img-top" alt="Product Image">
             <div class="card-body">
                 <h5 class="card-title">Nombre producto: {{this.title}}</h5>
-                <p class="card-text">Precio ${{this.price}}</p>
+                <p class="card-text">Precio ${{this.description}}</p>
+                  <p class="card-text">code: {{this.code}}</p>
+                <p class="card-text">price: {{this.price}}</p>
                 <p class="card-text">stock: {{this.stock}}</p>
+                 <p class="card-text">category: {{this.category}}</p>
+
                </div>
         </div>
     </div>
 <br>
 <br>
-  {{/each}}
+  {{/each}} 
 </div>
-
-
-
-
 </div>
- 
-
-<script src="/socket.io/socket.io.js"></script>
 
  <script src="/js/index.js"></script> 

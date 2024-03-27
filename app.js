@@ -52,18 +52,7 @@ io.on("connection", (socket) => {
     const products = await productManager.getProducts()
     socket.emit("newList", products)
   });
-
-  socket.on("deleteProduct", async (productId) => {
-    await productManager.deleteProduct(productId);
-    const products = await productManager.getProducts()
-    socket.emit("newList", products)
-  });
-
-  socket.on("getProducts", async () => {
-    const products = await productManager.getProducts();
-    socket.emit("newList", products);
-  });
-
+ 
 
    })
 
