@@ -38,5 +38,15 @@
 		"status": true,
 		"stock": 2,
 		"category": "categoria"
+	},
+	{
+		"id": 0,
+		"title": "Prueba gert",
+		"description": "descripcion prueba",
+		"code": "afasd",
+		"price": 5000,
+		"status": true,
+		"stock": 2,
+		"category": "categoria"
 	}
 ]

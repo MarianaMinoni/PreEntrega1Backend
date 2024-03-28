@@ -54,6 +54,7 @@ router.post("/:cid/product/:pid", async (req, res) => {
     res.status(201).send("Producto agregado al carrito");
   } catch (err) {
     console.error(err);
+
     res.status(500).send("Error del servidor");
   }
 });
