@@ -1,19 +1,36 @@
 import express  from "express";
+import productManager from "../managers/productManager.js";
 
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-      
-        res.render("home", {})
 
+//vista productos handlebars, sin socketIo
+router.get("/", async (req, res) => {
+    try{ let products = await productManager.getProducts()      
+        res.render("home", {products})
+
+}
+catch(err){res.status(500).send(`Error: ${err}`)}
 })
+
+
+
 
 router.get("/realtimeproducts", async (req, res) => {
+    try{ let products = await productManager.getProducts()   
       
-    res.render("home", {})
+    res.render("realtimeproducts", {products})
+    }
+    catch(err){res.status(500).send(`Error: ${err}`)}
 
-})
+ //acá deberia usar el socket.emit
+
+})  
+
+   
+
+
 
 
 
