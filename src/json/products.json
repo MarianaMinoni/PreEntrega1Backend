@@ -48,5 +48,25 @@
 		"status": true,
 		"stock": 2,
 		"category": "categoria"
+	},
+	{
+		"id": 0,
+		"title": "kjhdf",
+		"description": "sfkjh",
+		"code": "66",
+		"price": "89",
+		"status": true,
+		"stock": "87",
+		"category": "kjdahfk"
+	},
+	{
+		"id": 0,
+		"title": "jhgkh",
+		"description": "ksjhfk",
+		"code": "77",
+		"price": "99",
+		"status": true,
+		"stock": "8",
+		"category": ",sdnf"
 	}
 ]

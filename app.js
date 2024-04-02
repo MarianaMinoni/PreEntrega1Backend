@@ -9,8 +9,9 @@ import productManager from "./src/managers/productManager.js";
 
 
 const app = express();
+const port = 8080;
 
-const httpServer = app.listen(3030, () => console.log("servidor funcionando"));
+const httpServer = app.listen(port, () => console.log("servidor funcionando"));
 
 const io = new Server(httpServer);
 
@@ -40,5 +41,27 @@ app.get("/ping", (req, res) => {
 
 io.on("connection", (socket) => {
    console.log("Nuevo cliente conectado:", socket.id)
+
+   
+   socket.on("newProduct", async (data) => {
+    try {
+        await productManager.addProduct(
+            data.title,
+            data.description,
+            data.code,
+            data.price,
+            data.stock,
+            data.category,
+           
+        );
+
+        const products = await productManager.getProducts();
+        io.emit("productListUpdated", products); // Emitir evento para actualizar la lista de productos en tiempo real
+    } catch (err) {
+        console.error(err);
+        // Manejar el error adecuadamente
+    }
+});
+
 
     })
