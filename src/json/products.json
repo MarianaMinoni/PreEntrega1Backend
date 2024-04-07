@@ -41,42 +41,101 @@
 	},
 	{
 		"id": 0,
-		"title": "Prueba gert",
-		"description": "descripcion prueba",
-		"code": "afasd",
-		"price": 5000,
+		"title": "chocolate",
+		"description": "123",
+		"code": "55555555555dd555505555555555555555555555555555555555",
+		"price": "132",
 		"status": true,
-		"stock": 2,
-		"category": "categoria"
+		"stock": "13",
+		"category": "123",
+		"thumbnail": []
 	},
 	{
 		"id": 0,
-		"title": "kjhdf",
-		"description": "sfkjh",
-		"code": "66",
-		"price": "89",
+		"title": "chocolate",
+		"description": "123",
+		"code": "55555555555dd5555055555555555{55555555555555555555555",
+		"price": "132",
 		"status": true,
-		"stock": "87",
-		"category": "kjdahfk"
+		"stock": "13",
+		"category": "123",
+		"thumbnail": []
+	},
+	{
+		"id": 1,
+		"title": "chocolate",
+		"description": "123",
+		"code": "55555555555dd55550555aa55555555{55555555555555555555555",
+		"price": "132",
+		"status": true,
+		"stock": "13",
+		"category": "123",
+		"thumbnail": []
+	},
+	{
+		"id": 2,
+		"title": "chocolate",
+		"description": "123",
+		"code": "55555555555dd55vv550555aa55555555{55555555555555555555555",
+		"price": "132",
+		"status": true,
+		"stock": "13",
+		"category": "123",
+		"thumbnail": []
+	},
+	{
+		"id": 3,
+		"title": "chocolate",
+		"description": "123",
+		"code": "aaaa",
+		"price": "132",
+		"status": true,
+		"stock": "13",
+		"category": "123",
+		"thumbnail": []
 	},
 	{
 		"id": 0,
-		"title": "jhgkh",
-		"description": "ksjhfk",
-		"code": "77",
-		"price": "99",
+		"title": "chocolate",
+		"description": "123",
+		"code": "aaaad",
+		"price": "132",
 		"status": true,
-		"stock": "8",
-		"category": ",sdnf"
+		"stock": "13",
+		"category": "123",
+		"thumbnail": []
 	},
 	{
 		"id": 0,
-		"title": "harina",
-		"description": "harina 000",
-		"code": "35",
-		"price": "567",
+		"title": "",
+		"description": "",
+		"code": "",
+		"price": "",
 		"status": true,
-		"stock": "1",
-		"category": "alimento"
+		"stock": "",
+		"category": "",
+		"thumbnail": []
+	},
+	{
+		"id": 1,
+		"title": "sdv",
+		"description": "sdv",
+		"code": "vds",
+		"price": "vds",
+		"status": true,
+		"stock": "dvs",
+		"category": "vds",
+		"thumbnail": []
+	},
+	{
+		"id": 0,
+		"title": "sdv",
+		"description": "sdv",
+		"code": "vdsjhgj",
+		"price": "vds",
+		"status": true,
+		"stock": "dvs",
+		"category": "vds",
+		"thumbnail": []
 	}
 ]

@@ -8,6 +8,7 @@ import viewsRouter from "./src/routes/views.router.js";
 import productManager from "./src/managers/productManager.js";
 
 
+
 const app = express();
 const port = 8080;
 
@@ -42,26 +43,31 @@ app.get("/ping", (req, res) => {
 io.on("connection", (socket) => {
    console.log("Nuevo cliente conectado:", socket.id)
 
-   
-   socket.on("newProduct", async (data) => {
+   socket.on("newproduct", async (data) => {
     try {
-        await productManager.addProduct(
-            data.title,
-            data.description,
-            data.code,
-            data.price,
-            data.stock,
-            data.category,
-           
-        );
+        
+      const newProduct = await productManager.addProduct(
+        data.title,
+        data.description,
+        data.code,
+        data.price,
+        data.stock,
+        data.category        
+      );
+      
+         
+      io.emit("productsUpdated", productManager.getProducts());
+     
 
-        const products = await productManager.getProducts();
-        io.emit("productListUpdated", products); // Emitir evento para actualizar la lista de productos en tiempo real
-    } catch (err) {
-        console.error(err);
-        // Manejar el error adecuadamente
+      io.emit("addProductResponse", newProduct); // Emitir dentro del bloque try
+    } catch (error) {
+      console.error(error);
+
+      console.log("Producto agregado:", newProduct) 
+      
+      socket.emit("addProductResponse", { error: error.message }); // Emitir el error si ocurre
     }
+  });
 });
 
-
-    })
+   
