@@ -1,4 +1,4 @@
-import productManager from "../dao/productManager.js";
+import productManager from "../dao/productManagerFS.js";
 import express from "express";
 
 const router = express.Router();

@@ -6,7 +6,7 @@ import __dirname from "./utils.js"
 import routerProducts from "./src/routes/products.router.js";
 import routerCarts from "./src/routes/cart.router.js";
 import viewsRouter from "./src/routes/views.router.js";
-import productManager from "./src/dao/productManager.js"
+import productManager from "./src/dao/productManagerFS.js"
 import productsRouter from "./src/routes/productsRouter.js";
 
 
