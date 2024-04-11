@@ -1,4 +1,4 @@
-import cartManager from "../managers/cartManager.js";
+import cartManager from "../dao/cartManager.js";
 import express from "express";
 const router = express.Router();
 

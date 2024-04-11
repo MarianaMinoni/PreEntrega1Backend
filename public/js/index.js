@@ -1,40 +1,46 @@
 const socket = io()
 
 
+const title = document.querySelector("#title");
+const description = document.querySelector("#description");
+const code = document.querySelector("#code");
+const price = document.querySelector("#price");
+const stock = document.querySelector("#stock");
+const category = document.querySelector("#category");
 
-const formData = document.querySelector("#productForm");
-formData.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    
-    const title = document.querySelector("#title").value;
-    const description = document.querySelector("#description").value;
-    const code = document.querySelector("#code").value;
-    const price = document.querySelector("#price").value;
-    const stock = document.querySelector("#stock").value;
-    const category = document.querySelector("#category").value;
 
-    socket.emit("newProduct", { title, description, code, price, stock, category });
-    
-    // Clear form fields
-    formData.reset();
-});
+
+const productForm = document.querySelector('#productForm');
+const allProducts = document.querySelector('#allProducts');
 
 
 
 
-//actualizo la lista de productos agregados
-
-socket.on("productListUpdated", (products) => {
-    // Actualizar la vista con los nuevos productos
-    // Por ejemplo, si tienes una lista de productos en tu HTML:
-    const productList = document.querySelector("#productList");
-    productList.innerHTML = ""; // Limpiar la lista
-
-    products.forEach(product => {
-        const li = document.createElement("li");
-        li.textContent = `<div> ${product.title}
-         $${product.price}
-        </div>`
-        productList.appendChild(li);
+productForm.addEventListener("submit", (event) => {
+    event.preventDefault(); 
+   socket.emit("newproduct", {
+      title: title.value,
+      description: description.value,
+      code: code.value,
+      price: price.value,
+      stock: stock.value,
+      category: category.value,
     });
+  });
+
+  socket.on("addProductResponse", newProduct => {
+    console.log("Respuesta del servidor:", newProduct);
+   
+    allProducts.innerHTML += `
+    <div class="container col-3" > 
+    <div class="card">
+    <div class="card-body"> 
+    <h5 class="card-title">${newProduct.title}</h5>
+     <p lass="card-text"> Precio: ${newProduct.price}</p> 
+     <p lass="card-text">stock: ${newProduct.stock} </p> 
+     </div>
+     </div>
+     </div>`;
 });
+
+

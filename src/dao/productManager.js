@@ -56,7 +56,8 @@ class ProductManager {
     const codeExists = this.products.some((product) => product.code === code);
 
     if (codeExists) {
-      console.log("el código ingresado ya existe");
+      return  `error: el codigo ${code} ya existe`;
+      
     } else {
       const product = {
         id: this.id,
@@ -67,20 +68,14 @@ class ProductManager {
         status: true,
         stock: stock,
         category: category,
-        thumbnail: thumbnail,
+        thumbnail: thumbnail ?? []
       };
-      this.products.push(product);
       this.id++;
-    }
+      this.products.push(product);      
+      
 
-    try {
-      await fs.promises.writeFile(
-        this.path,
-        JSON.stringify(this.products, null, "\t"),
-        "utf-8"
-      );
-    } catch (err) {
-      console.log(err);
+      this.saveProducts()
+      return  "agregado con exito";
     }
   }
 
