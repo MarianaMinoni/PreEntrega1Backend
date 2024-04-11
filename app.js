@@ -59,7 +59,7 @@ connection()
 io.on("connection", (socket) => {
    console.log("Nuevo cliente conectado:", socket.id)
 
-   socket.on("newproduct", async (data) => {
+     socket.on("newproduct", async (data) => {
     try {
         
       const newProduct = await productManager.addProduct(
