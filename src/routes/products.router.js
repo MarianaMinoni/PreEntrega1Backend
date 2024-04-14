@@ -1,5 +1,9 @@
-import productManager from "../dao/productManagerFS.js";
+//import productManager from "../dao/productManagerFS.js";
+import productManagerMDB from "../dao/productManagaerMDB.js"
 import express from "express";
+
+
+const productManager =  new productManagerMDB();
 
 const router = express.Router();
 

@@ -6,8 +6,10 @@ import __dirname from "./utils.js"
 import routerProducts from "./src/routes/products.router.js";
 import routerCarts from "./src/routes/cart.router.js";
 import viewsRouter from "./src/routes/views.router.js";
-import productManager from "./src/dao/productManagerFS.js"
-import productsRouter from "./src/routes/productsRouter.js";
+//import productManager from "./src/dao/productManagerFS.js"
+//import productsRouter from "./src/routes/productsRouter.js";
+
+
 
 
 
@@ -26,15 +28,15 @@ app.use(express.static(__dirname+"/public"))
 app.engine("handlebars", handlebars.engine());
 
 // Use routers
-//app.use("/products", routerProducts);
-app.use("/products", productsRouter);
+app.use("/products", routerProducts);
+//app.use("/products", productsRouter);
 app.use("/cart", routerCarts);
 app.use("/", viewsRouter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/products", productsRouter);
+app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
 
 //reglas para ver si funciona ok

@@ -1,5 +1,4 @@
-import fs from "fs";
-import { productsModel } from "./models/productsModel";
+import { productsModel } from "./models/productsModel.js";
 
 class ProductManagerMDB {
   constructor(path) {
@@ -15,22 +14,9 @@ class ProductManagerMDB {
 
   async initialize() {
     await this.getProducts();
-    this.saveProducts();
+  
   }
 
-  // METODO GUARDAR PRODUCTOS
-  async saveProducts() {
-    try {
-      await fs.promises.writeFile(
-        this.path,
-        JSON.stringify(this.products, null, "\t"),
-        "utf-8"
-      );
-      console.log("productos guardados correctamente");
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
 
 
@@ -48,13 +34,13 @@ class ProductManagerMDB {
 
 
   //METODO AGREGAR PRODUCTO A LA LISTA, CON VALIDACIONES - MONGO OK
-  async addProduct(title,code,price, stock, category, thumbnail ) {
+  async addProduct(title,description, code,price, stock, category, thumbnail ) {
 
     if (!title || !description || !code || !price || !stock || !category) {
       console.log("todos los campos son obligatorios")}
 
       try {
-        const result = await productsModel.create({title, code, price, stock, category, thumbnail : thumbnail ?? []})
+        const result = await productsModel.create({title, description, code, price, stock, category, thumbnail : thumbnail ?? []})
         return result
     } catch (error){
         console.log(error.message)
@@ -67,16 +53,17 @@ class ProductManagerMDB {
 
 
 
-  // METODO BORRAR PRODUCTO
-  deleteProduct(id) {
-    const idExists = this.products.some((product) => product.id === id);
-    if (idExists) {
-      this.products = this.products.filter((product) => product.id != id);
-      console.log("producto borrado con exito");
-      this.saveProducts();
-    } else {
-      return { error: true, message: "ID no encontrado" };
-    }
+  // METODO BORRAR PRODUCTO - MONGO OK
+  async deleteProduct(pid) {
+   try{
+    const result = await productsModel.deleteOne({_id: pid})
+    if(result.deletedCount === 0) throw new Error ("el id ingresado no existe")
+    return result
+
+ } catch (error) {
+    console.log(error.message)
+    throw new Error ("error al borrar el producto")
+   }
   }
 
 
@@ -123,12 +110,6 @@ class ProductManagerMDB {
   }
 }
 
-const productManagerMDB = new ProductManager("./src/json/products.json");
 
-
-//productManager.getProducts(); //ok
-//productManager.deleteProduct(2) //ok
-//console.log(productManager.getProductById(0)); //ok
-//productManager.updateProduct(1, 'description', 'jean negro') //FUNCIONA OK
 
 export default ProductManagerMDB;
