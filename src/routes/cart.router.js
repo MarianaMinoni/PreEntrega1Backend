@@ -1,11 +1,14 @@
-import cartManager from "../dao/cartManagerFS.js";
+import cartManagerMDB from "../dao/cartManagerMDB.js"
 import express from "express";
 const router = express.Router();
+
+const cartManager = new cartManagerMDB();
+
 
 //TRAER TODOS LOS CARRITOS EXISTENTER // funciona ok
 
 router.get("/", async (req, res) => {
-  let cart = await cartManager.getProducts();
+  let cart = await cartManager.getCart();
   res.status(200).send(cart);
 });
 
@@ -26,13 +29,15 @@ router.post("/", async (req, res) => {
 router.get("/:cid", async (req, res) => {
   try {
     const cartId = parseInt(req.params.cid);
-    const cart = cartManager.cart.find((cart) => cart.id === cartId);
+    console.log(req.params.cid);
+    const cart = await cartManager.getCartById(cartId);
 
     if (!cart) {
       return res.status(404).send("Carrito inexistente");
+    } else {
+      return res.status(200).send(cart);
     }
 
-    res.send(cart.products);
   } catch (err) {
     res.status(500).send("Error interno del servidor");
   }

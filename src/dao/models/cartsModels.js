@@ -25,4 +25,4 @@ const cartSchema =  new mongoose.Schema({
 })
 
 // compilo y exporto el modelo
-export const cartmodel = mongoose.model(cartCollection, cartSchema)
+export const cartsModel = mongoose.model(cartCollection, cartSchema)

@@ -19,11 +19,10 @@ class ProductManagerMDB {
 
 
 
-
   //METODO TRAER PRODUCTOS  - MONGO OK
   async getProducts() {
     try {      
-      return await productsModel.find()
+      return await productsModel.find().lean()
     } catch (err) {
       console.log(err);
       throw new Error("error al buscar los productos")
@@ -96,7 +95,7 @@ class ProductManagerMDB {
           };
         }
       }
-      this.saveProducts();
+     
     } else {
       return { error: true, message: "ID no encontrado" };
     }
