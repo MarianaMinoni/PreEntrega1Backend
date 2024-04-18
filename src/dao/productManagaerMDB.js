@@ -79,34 +79,20 @@ class ProductManagerMDB {
 
 
 
-  // REEMPLAZAR ALGUNA PROPIEDAD DE UN PRODUCTO
+  // REEMPLAZAR ALGUNA PROPIEDAD DE UN PRODUCTO - MONGO OK
 
-  updateProduct(id, changes) {
-    let product = this.products.find((product) => product.id === id);
-    if (product) {
-      for (let prop in changes) {
-        if (prop in product) {
-          product[prop] = changes[prop];
-          console.log("La propiedad se modificó con éxito.");
-        } else {
-          return {
-            error: true,
-            message: "La propiedad indicada no ha sido encontrada",
-          };
-        }
-      }
-     
-    } else {
-      return { error: true, message: "ID no encontrado" };
-    }
+  async updateProduct(pid, changes) {
+       try {
+      const result = await productsModel.updateOne({_id: pid}, changes);
+
+      return result;
+  } catch(error) {
+      throw new Error('Error updating Product!');
+  }
+    
   }
 
-  //METODO PARA LIMITAR LA CANTIDAD DE PRODUCTOS QUE SE MUESTRAN POR PÁGINA
 
-  limitProducts(limit) {
-    const limitProducts = this.products.slice(0, limit);
-    return limitProducts;
-  }
 }
 
 

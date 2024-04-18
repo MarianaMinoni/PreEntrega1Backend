@@ -27,35 +27,48 @@ app.set("view engine", "handlebars")
 app.use(express.static(__dirname+"/public"))
 app.engine("handlebars", handlebars.engine());
 
-// Use routers
+// Use routers/app.use("/products", routerProducts);
 app.use("/products", routerProducts);
-//app.use("/products", productsRouter);
 app.use("/cart", routerCarts);
 app.use("/", viewsRouter);
 
+//middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
 
-//reglas para ver si funciona ok
+
+const environment = async () =>{
+  await mongoose.connect("mongodb+srv://dbAdmin:dbAdmin@cluster0.b4sydgr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {dbName: "ecommerce"})
+     console.log("conectado a la base remota de datos")
+
+}
+
+environment()
+
+//conecto mongodb y le paso la uri de mi conexión y le paso el nombre de la base a la que quiero que se conecte
+// const connection = async() => {
+//   try {
+//     await mongoose.connect("mongodb+srv://dbAdmin:dbAdmin@cluster0.b4sydgr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {dbName: "ecommerce"})
+//     //await mongoose.connect("mongodb://127.0.0.1:27017", {dbName: "ecommerce"})
+//     console.log("conectado a la base remota de datos")
+//   } catch(err) {
+//     console.log("falló la conexión")
+//   }
+// }
+
+// connection()
+
+
+
+//regla para ver si funciona ok
 app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-//conecto mongodb y le paso la uri de mi conexión y le paso el nombre de la base a la que quiero que se conecte
-const connection = async() => {
-  try {
-    await mongoose.connect("mongodb+srv://dbAdmin:dbAdmin@cluster0.b4sydgr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {dbName: "ecommerce"})
-    //await mongoose.connect("mongodb://127.0.0.1:27017", {dbName: "ecommerce"})
-    console.log("conectado a la base remota de datos")
-  } catch(err) {
-    console.log("falló la conexión")
-  }
-}
 
-connection()
 
 
 io.on("connection", (socket) => {

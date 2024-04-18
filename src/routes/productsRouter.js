@@ -48,5 +48,10 @@ router.delete("/:id", async(req,res) => {
     
 })
 
+router.get("/search", async (req, res) =>{
+   
+} )
+
+
 
 export default router

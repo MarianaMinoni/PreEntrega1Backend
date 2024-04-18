@@ -1,6 +1,7 @@
 
 
 import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 //llamo a la coleccion que quiero usar
 const productsCollection = "products"
@@ -9,7 +10,8 @@ const productsCollection = "products"
 const productsSchema = new mongoose.Schema({
     title : {
         type: String,
-        require : true
+        require : true,
+        index : true
     },
     description : {
         type: String,
@@ -21,7 +23,8 @@ const productsSchema = new mongoose.Schema({
     },
     price:{
         type: Number,
-        require : true
+        require : true,
+        index : true
     },
     status : {
         type: Boolean,
@@ -30,7 +33,8 @@ const productsSchema = new mongoose.Schema({
     },
     stock : {
         type: Number,
-        require : true
+        require : true,
+        index : true
     },
     category: {
         type: String,
@@ -44,6 +48,8 @@ const productsSchema = new mongoose.Schema({
     },
 })
 
+
+productsSchema.plugin(mongoosePaginate)
 // compilo y exporto el modelo
 export const productsModel = mongoose.model(productsCollection, productsSchema)
 

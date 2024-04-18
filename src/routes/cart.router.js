@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
 
 router.get("/:cid", async (req, res) => {
   try {
-    const cartId = parseInt(req.params.cid);
+    const cartId = req.params.cid
     console.log(req.params.cid);
     const cart = await cartManager.getCartById(cartId);
 
@@ -47,11 +47,11 @@ router.get("/:cid", async (req, res) => {
 
 router.post("/:cid/product/:pid", async (req, res) => {
   try {
-    const cartId = parseInt(req.params.cid);
-    const productId = parseInt(req.params.pid);
+    const cartId = req.params.cid;
+    const productId = req.params.pid;
     const quantity = parseInt(req.body.quantity);
 
-    if (isNaN(cartId) || isNaN(productId) || isNaN(quantity)) {
+    if (!cartId || !productId || !quantity) {
       return res.status(400).send("Todos los campos son requeridos.");
     }
 

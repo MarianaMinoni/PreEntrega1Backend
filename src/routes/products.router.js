@@ -1,5 +1,6 @@
 //import productManager from "../dao/productManagerFS.js";
 import productManagerMDB from "../dao/productManagaerMDB.js"
+import { productsModel } from "../dao/models/productsModel.js";
 import express from "express";
 
 
@@ -25,11 +26,11 @@ router.get("/", async (req, res) => {
 router.get("/:pid", async(req,res) => {
     let id = req.params.pid;
     try{
-        const productXid = parseInt(id);
-        if(productXid === null){
+        //const productXid = parseInt(id);
+        if(id === null){
             res.send('No se ha otorgado un ID');
         } else{
-            const productId = await productManager.getProductById(productXid);
+            const productId = await productManager.getProductById(id);
             res.send(productId);
 
         } } catch(err){
@@ -58,8 +59,9 @@ router.get("/:pid", async(req,res) => {
 
 
 router.put("/:pid", (req, res) => {
-    let id = parseInt(req.params.pid);
+    let id = req.params.pid;
     const changes = req.body;
+
 
     if (!changes) {
         return res.status(400).send("Se debe proporcionar al menos un cambio.");
@@ -77,7 +79,7 @@ router.put("/:pid", (req, res) => {
 //BORRAR UN PRODUCTO // funciona ok
 
 router.delete("/:pid", (req, res) => {
-    let id = parseInt(req.params.pid)
+    let id = req.params.pid
 
     try {
         productManager.deleteProduct(id)
@@ -87,5 +89,46 @@ router.delete("/:pid", (req, res) => {
         res.status(500).send("Error interno del servidor.")
     }
 });
+
+
+router.get("/search", async (req, res) => {
+    const { _id, title, description, price, code, stock, thumbnail, status, category } = req.query;
+  
+     //Check if ID is provided in the query
+     if (_id) {
+       try {
+         const product = await productsModel.findById(id);
+         if (!product) {
+           return res.status(404).json({ status: "error", message: "Product not found" });
+         }
+         return res.status(200).json({ status: "success", payload: product });
+       } catch (error) {
+         return res.status(500).json({ status: "error", message: error.message });
+       }
+     }
+  
+     // 
+    try {
+      const query = {};
+  
+      if (title) query.title = title;
+      if (description) query.description = description;
+      if (price) query.price = price;
+      if (code) query.code = code;
+      if (stock) query.stock = stock;
+      if (thumbnail) query.thumbnail = thumbnail;
+      if (status) query.status = status;
+      if (category) query.category = category;
+  
+      const products = await productsModel.find(query);
+      return res.status(200).json({ status: "success", payload: products });
+    } catch (error) {
+      return res.status(500).json({ status: "error", message: error.message });
+    }
+});
+     
+
+
+
 
 export default router
