@@ -90,52 +90,28 @@ router.delete("/:pid", (req, res) => {
   }
 });
 
-router.get("/search", async (req, res) => {
-  const {
-    _id,
-    title,
-    description,
-    price,
-    code,
-    stock,
-    thumbnail,
-    status,
-    category,
-  } = req.query;
+// router.get("/search", async (req, res) => {
 
-  //busco el id
-  if (_id) {
-    try {
-      const product = await productsModel.findById(id);
-      if (!product) {
-        return res
-          .status(404)
-          .json({ status: "error", message: "Product not found" });
-      }
-      return res.status(200).json({ status: "success", payload: product });
-    } catch (error) {
-      return res.status(500).json({ status: "error", message: error.message });
-    }
-  }
 
-  //
-  try {
-    const query = {};
+//    try{
+//           const {title}  = req.query
+//           let query = {}
+//           if(title) query = {title}
+//           const result = await productsModel.find(query).explain("executionStats")
 
-    if (title) query.title = title;
-    if (description) query.description = description;
-    if (price) query.price = price;
-    if (code) query.code = code;
-    if (stock) query.stock = stock;
-    if (thumbnail) query.thumbnail = thumbnail;
-    if (status) query.status = status;
-    if (category) query.category = category;
-
-    const products = await productsModel.find(query);
-    return res.status(200).json({ status: "success", payload: products });
-  } catch (error) {
-    return res.status(500).json({ status: "error", message: error.message });
-  }
-});
+//           res.status(200).send({
+//              status: "success", 
+//               payload: result
+//           })
+//       } catch(err){
+//           res.status(400).send({
+//             status: "error", 
+//             payload: { 
+//             error:e.message}
+//           })
+        
+                
+//       }
+// });
 
 export default router;

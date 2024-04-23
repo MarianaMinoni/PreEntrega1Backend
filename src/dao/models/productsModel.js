@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
+
 //llamo a la coleccion que quiero usar
 const productsCollection = "products";
 
@@ -45,6 +46,7 @@ const productsSchema = new mongoose.Schema({
   },
 });
 
-productsSchema.plugin(mongoosePaginate);
+
+productsSchema.plugin(mongoosePaginate)
 // compilo y exporto el modelo
 export const productsModel = mongoose.model(productsCollection, productsSchema);
