@@ -86,7 +86,28 @@ class CartManagerMDB {
         console.error(error)
       }
     }
+
+
+async removeProductFromCart(cartId, productId) {
+  try {
+      const cart = await cartsModel.findOne({_id: cartId});
+      if (!cart) {
+        throw new Error("Carrito no encontrado");
+      }
+
+      const productIndex = cart.products.findIndex(product => product.product === productId);
+      if (productIndex === -1) {
+        throw new Error("Producto no encontrado en el carrito");
+      }
+
+      cart.products.splice(productIndex, 1);
+      await cart.save();
+  } catch (error) {
+      console.error(error);
+      throw new Error("Error al eliminar el producto del carrito");
+  }
 }
 
+}
 
 export default CartManagerMDB;

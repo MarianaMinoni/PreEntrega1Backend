@@ -53,13 +53,39 @@ router.post("/:cid/product/:pid", async (req, res) => {
       return res.status(400).send("Todos los campos son requeridos.");
     }
 
-    await cartManager.addToCart(cartId, productId, quantity);
-    res.status(201).send("Producto agregado al carrito");
+    await cartManager.addToCart(cartId, productId, quantity)
+    res.status(201).send("Producto agregado al carrito")
   } catch (err) {
     console.error(err);
 
-    res.status(500).send("Error del servidor");
+    res.status(500).send("Error del servidor")
   }
 });
+
+
+
+  router.delete("/:cid/products/:pid", async (req, res) => {
+    try {
+      const cartId = req.params.cid
+      const productId = req.params.pid
+  
+    
+      if (!cartId || !productId) {
+        return res.status(400).send("El id del producto y del carrito son obligatorios")
+      }
+  
+   
+      await cartManager.removeProductFromCart(cartId, productId)
+  
+      res.status(200).send("Producto eliminado del carrito")
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error del servidor")
+    }
+  });
+  
+
+
+
 
 export default router;

@@ -21,10 +21,10 @@ router.get("/search", async (req, res) => {
       sort[sortField] = sortOrder === "asc" ? 1 : -1;
     }
 
-    // Calcular el desplazamiento para la paginación
+    
     const offset = (page - 1) * limit;
 
-    // Ejecutar la consulta con filtrado, ordenamiento, límite y paginación
+    //  filtrado, ordenamiento, límite y paginación
     const result = await productsModel
       .find(query)
       .sort(sort)

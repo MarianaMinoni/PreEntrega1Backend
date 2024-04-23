@@ -90,28 +90,6 @@ router.delete("/:pid", (req, res) => {
   }
 });
 
-// router.get("/search", async (req, res) => {
 
-
-//    try{
-//           const {title}  = req.query
-//           let query = {}
-//           if(title) query = {title}
-//           const result = await productsModel.find(query).explain("executionStats")
-
-//           res.status(200).send({
-//              status: "success", 
-//               payload: result
-//           })
-//       } catch(err){
-//           res.status(400).send({
-//             status: "error", 
-//             payload: { 
-//             error:e.message}
-//           })
-        
-                
-//       }
-// });
 
 export default router;
