@@ -27,12 +27,6 @@ app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 app.engine("handlebars", handlebars.engine());
 
-// Use routers/app.use("/products", routerProducts);
-app.use("/products", routerProducts);
-app.use("/cart", routerCarts);
-app.use("/", viewsRouter);
-app.use("/cookies", cookiesRouter)
-app.use("/session", sessionRouter)
 
 //middlewares
 app.use(express.json());
@@ -45,6 +39,15 @@ app.use(session(
     saveUninitialized : true
   }
 ))
+
+
+// Use routers/app.use("/products", routerProducts);
+app.use("/products", routerProducts);
+app.use("/cart", routerCarts);
+app.use("/", viewsRouter);
+app.use("/cookies", cookiesRouter)
+app.use("/session", sessionRouter)
+
 
 app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
