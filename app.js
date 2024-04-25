@@ -8,6 +8,12 @@ import routerCarts from "./src/routes/cart.router.js";
 import viewsRouter from "./src/routes/views.router.js";
 //import productManager from "./src/dao/productManagerFS.js"
 //import productsRouter from "./src/routes/productsRouter.js";
+import cookieParser from "cookie-parser";
+import cookiesRouter from "./src/routes/cookies.router.js";
+import sessionRouter from "./src/routes/session.router.js";
+import session from "express-session";
+
+//const productManager = new productManager();
 
 const app = express();
 const port = 8080;
@@ -25,10 +31,20 @@ app.engine("handlebars", handlebars.engine());
 app.use("/products", routerProducts);
 app.use("/cart", routerCarts);
 app.use("/", viewsRouter);
+app.use("/cookies", cookiesRouter)
+app.use("/session", sessionRouter)
 
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser("marian"))
+app.use(session(
+  {
+    secret : "secretPhrase",
+    resave : true,
+    saveUninitialized : true
+  }
+))
 
 app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
