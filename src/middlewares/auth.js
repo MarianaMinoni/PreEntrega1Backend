@@ -6,6 +6,10 @@ export const auth = function (req,res, next) {
 
     req.session.user = username
     req.session.admin = true
+    req.session.data = {
+        age : 33,
+        course : "Node"
+    }
 
     return next()
 }

@@ -6,14 +6,17 @@ import __dirname from "./utils.js";
 import routerProducts from "./src/routes/products.router.js";
 import routerCarts from "./src/routes/cart.router.js";
 import viewsRouter from "./src/routes/views.router.js";
-//import productManager from "./src/dao/productManagerFS.js"
-//import productsRouter from "./src/routes/productsRouter.js";
 import cookieParser from "cookie-parser";
 import cookiesRouter from "./src/routes/cookies.router.js";
 import sessionRouter from "./src/routes/session.router.js";
 import session from "express-session";
+//import fileStore from  "session-file-store"
+import mongoStore from "connect-mongo";
+
 
 //const productManager = new productManager();
+
+//const fileStorage = fileStore(session)
 
 const app = express();
 const port = 8080;
@@ -34,9 +37,34 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser("marian"))
 app.use(session(
   {
+   
+   
+   /* store: new fileStorage(
+      {
+        path: "./src/sessions",
+        ttl: 100,
+        retries: 0
+      }
+
+    ), */
+
+    store : mongoStore.create(
+      {
+        //aca va el connection string
+        mongoUrl : "mongodb://localhost:27017/users",
+        ttl : 150
+
+         
+      }
+    ),
+
     secret : "secretPhrase",
     resave : true,
     saveUninitialized : true
+
+
+
+
   }
 ))
 

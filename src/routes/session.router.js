@@ -6,14 +6,13 @@ const router = Router()
 
 
 router.get("/", (req,res) =>{
-    
-console.log(req.session);
+ let username = req.session.user ? req.session.user : ""
     if(req.session.counter){
         req.session.counter++
-        res.send(`visitaste el sitio ${req.session.counter} veces`)
+        res.send(` ${username} visitaste el sitio ${req.session.counter} veces`)
     } else{
         req.session.counter = 1 
-        res.send("Bienvenido!!")
+        res.send(`Bienvenido!!${username}`)
     }
 })
 
