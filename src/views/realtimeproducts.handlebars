@@ -2,7 +2,7 @@
 
 <h3>Ingrese un producto para agregarlo al carrito</h3>
 
-   <form id="productForm" >
+   <form id="productForm"  method="post" >
     <div class="mb-3">
         <label for="title" class="form-label">Nombre del producto</label>
         <input type="text" class="form-control" id="title" name="title">
@@ -36,18 +36,18 @@
 
 <div class="container " >
     {{#each products}}
-    <div class="container col-3" > 
+    <div class="container col-3" id="allProducts"> 
 
    <div >
 
         <div class="card">
                 <div class="card-body">
                 <h5 class="card-title">{{this.title}}</h5>
-                <p class="card-text">${{this.price}}</p>
+                <p class="card-text"> {{this.price}}</p>
                 <p class="card-text">stock: {{this.stock}}</p>
-                <button type="button" class="btn btn-secondary">Agregar al carrito</button>
+                <button type="button" class="btn btn-danger delete-product" data-product-id= {{this._id}} >Eliminar</button>
                
-            </div>
+           </div>
         </div>
     </div>
     </div>

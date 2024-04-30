@@ -8,13 +8,13 @@ import routerCarts from "./src/routes/cart.router.js";
 import viewsRouter from "./src/routes/views.router.js";
 import cookieParser from "cookie-parser";
 import cookiesRouter from "./src/routes/cookies.router.js";
-import sessionRouter from "./src/routes/session.router.js";
+import usersRouter from "./src/routes/users.router.js";
 import session from "express-session";
 //import fileStore from  "session-file-store"
 import mongoStore from "connect-mongo";
+import ProductManagerMDB from "./src/dao/productManagaerMDB.js";
 
-
-//const productManager = new productManager();
+const productManager = new ProductManagerMDB();
 
 //const fileStorage = fileStore(session)
 
@@ -52,7 +52,10 @@ app.use(session(
       {
         //aca va el connection string
         mongoUrl : "mongodb://localhost:27017/users",
-        ttl : 150
+        mongoOptions: {
+           useUnifiedTopology: true,
+        },
+        ttl : 10
 
          
       }
@@ -62,21 +65,14 @@ app.use(session(
     resave : true,
     saveUninitialized : true
 
-
-
-
   }
 ))
 
 
 // Use routers/app.use("/products", routerProducts);
-app.use("/products", routerProducts);
-app.use("/cart", routerCarts);
 app.use("/", viewsRouter);
 app.use("/cookies", cookiesRouter)
-app.use("/session", sessionRouter)
-
-
+app.use("/session", usersRouter)
 app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
 
@@ -114,6 +110,8 @@ io.on("connection", (socket) => {
   console.log("Nuevo cliente conectado:", socket.id);
 
   socket.on("newproduct", async (data) => {
+
+    
     try {
       const newProduct = await productManager.addProduct(
         data.title,
@@ -126,11 +124,28 @@ io.on("connection", (socket) => {
 
       io.emit("productsUpdated", productManager.getProducts());
 
-      io.emit("addProductResponse", data); // Emitir dentro del bloque try
+      io.emit("addProductResponse", data); 
     } catch (error) {
       console.error(error);
 
-      socket.emit("addProductResponse", { error: error.message }); // Emitir el error si ocurre
+      socket.emit("addProductResponse", { error: error.message }); 
     }
   });
+ 
+  socket.on("deleteProduct", async ({ productId }) => {
+    try {
+        // Eliminar los espacios en blanco alrededor del ID del producto
+        productId = productId.trim();
+
+        if (!mongoose.Types.ObjectId.isValid(productId)) {
+            throw new Error("El ID del producto no es válido");
+        }
+
+        await productManager.deleteProduct(productId);
+        io.emit("deleteProductResponse", { success: true, productId: productId });
+    } catch (error) {
+        console.error("Error al eliminar el producto:", error);
+        io.emit("deleteProductResponse", { success: false, error: "Error al eliminar el producto" });
+    }
+});
 });

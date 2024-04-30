@@ -4,6 +4,8 @@ import ProductManagerMDB from "../dao/productManagaerMDB.js";
 
 const router = express.Router();
 
+const productManager = new ProductManagerMDB();
+
 
 router.get("/search", async (req, res) => {
   try {
@@ -47,15 +49,16 @@ router.get("/search", async (req, res) => {
 });
 
 //vista productos handlebars, sin socketIo
-// router.get("/", async (req, res) => {
-//   try {
-//     let products = await productManager.getProducts();
-//     res.render("home", { products });
-//   } catch (err) {
-//     res.status(500).send(`Error: ${err}`);
-//   }
-// });
+ router.get("/", async (req, res) => {
+   try {
+     let products = await productManager.getProducts();
+     res.render("home", { products });
+   } catch (err) {
+     res.status(500).send(`Error: ${err}`);
+   }
+ });
 
+ 
 router.get("/realtimeproducts", async (req, res) => {
   try {
     let products = await productManager.getProducts();

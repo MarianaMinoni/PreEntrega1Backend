@@ -87,7 +87,7 @@ class ProductManagerMDB {
 
       return result;
   } catch(error) {
-      throw new Error('Error updating Product!');
+      throw new Error('Error al actualizar el producto');
   }
     
   }
