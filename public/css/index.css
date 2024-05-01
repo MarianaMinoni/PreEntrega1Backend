@@ -1,0 +1,27 @@
+* {
+    background: #090909;
+    color: white;
+}
+
+hr {
+    width: 100%;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    background-color: white;
+    color: black;
+}
+
+#button-chat {
+    margin-top: 5px;
+    background-color: #33a033;
+    border-radius: 6px;
+    padding: 5px;
+}

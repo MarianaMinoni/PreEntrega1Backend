@@ -99,7 +99,7 @@ environment();
 
 // connection()
 
-
+let messages = [];
 
 //regla para ver si funciona ok
 app.get("/ping", (req, res) => {
@@ -147,5 +147,24 @@ io.on("connection", (socket) => {
         console.error("Error al eliminar el producto:", error);
         io.emit("deleteProductResponse", { success: false, error: "Error al eliminar el producto" });
     }
+});
+
+
+
+  //chat
+  socket.on("message", data => {
+    console.log(data);
+    io.emit("messageShow", data) //Emito para todos los usuarios lo que se esta escribiendo
+});
+
+
+socket.on("chatMessage", data => {
+    console.log(data);
+    messages.push({
+        socketId: socket.id,
+        message: data
+    });
+
+    io.emit("allMessages", messages);
 });
 });

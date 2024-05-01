@@ -60,27 +60,11 @@ socket.on("deleteProductResponse", (response) => {
       console.error("Error al eliminar el producto:", response.error);
   }
 
-  
-// socket.on("deleteProductResponse", (response) => {
-//    // console.log(response.productId);
 
-//     if (response.success) {
-//         const productId = response.productId;
-//        // console.log(response.productId);
-    
-
-//        //const productCard = document.querySelector(`[data-product-id="${productId}"]`);
-//        // console.log(productCard);
-//         if (productId) {
-//           productId.remove();
-//         }
-//     } else {
-//         console.error("Error al eliminar el producto:", response.error);
-//     }
 });
 
 
-
+//renderiza los productos
 
   socket.on("addProductResponse", newProduct => {
     console.log("Respuesta del servidor:", newProduct);
