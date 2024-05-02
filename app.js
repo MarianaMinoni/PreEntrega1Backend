@@ -29,41 +29,17 @@ app.set("views", __dirname + "/src/views");
 app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 app.engine("handlebars", handlebars.engine());
-
-// Use routers/app.use("/products", routerProducts);
-app.use("/", viewsRouter);
-app.use("/cookies", cookiesRouter)
-app.use("/session", usersRouter)
-app.use("/api/products", routerProducts);
-app.use("/api/carts", routerCarts);
-
-//middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser("marian"))
 app.use(session(
-  {
-   
-   
-   /* store: new fileStorage(
-      {
-        path: "./src/sessions",
-        ttl: 100,
-        retries: 0
-      }
-
-    ), */
-
-    store : mongoStore.create(
+  { 
+        store : mongoStore.create(
       {
         //aca va el connection string
         mongoUrl : "mongodb://localhost:27017/users",
         mongoOptions: {
            useUnifiedTopology: true,
         },
-        ttl : 10
-
-         
+        ttl : 5
+ 
       }
     ),
 
@@ -73,6 +49,14 @@ app.use(session(
 
   }
 ))
+
+// Use routers/app.use("/products", routerProducts);
+app.use("/", viewsRouter);
+app.use("/cookies", cookiesRouter)
+app.use("/session", usersRouter)
+app.use("/api/products", routerProducts);
+app.use("/api/carts", routerCarts);
+
 
 
 
@@ -85,6 +69,13 @@ const environment = async () => {
 };
 
 environment();
+
+//middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser("marian"))
+
+
 
 //conecto mongodb y le paso la uri de mi conexión y le paso el nombre de la base a la que quiero que se conecte
 // const connection = async() => {

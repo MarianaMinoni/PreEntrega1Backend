@@ -51,16 +51,16 @@ router.get("/search", async (req, res) => {
 });
 
 //vista productos handlebars, sin socketIo
-//  router.get("/", async (req, res) => {
+  router.get("/", async (req, res) => {
 
 
-//    try {
-//      let products = await productManager.getProducts();
-//      res.render("home", { products });
-//    } catch (err) {
-//      res.status(500).send(`Error: ${err}`);
-//    }
-//  });
+    try {
+      let products = await productManager.getProducts();
+      res.render("home", { products });
+    } catch (err) {
+      res.status(500).send(`Error: ${err}`);
+    }
+  });
 
  
 router.get("/realtimeproducts", async (req, res) => {
@@ -77,6 +77,11 @@ router.get("/realtimeproducts", async (req, res) => {
 
 router.get("/chat", (req,res) =>{
   res.render("chat" )
+
+})
+
+router.get("/register" , (req,res) => {
+  res.render("users")
 })
 
 export default router;
