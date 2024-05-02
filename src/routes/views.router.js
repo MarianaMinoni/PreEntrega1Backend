@@ -1,6 +1,7 @@
 import express from "express";
 import { productsModel } from "../dao/models/productsModel.js";
 import ProductManagerMDB from "../dao/productManagaerMDB.js";
+import mongoose  from "mongoose";
 
 const router = express.Router();
 
@@ -32,7 +33,8 @@ router.get("/search", async (req, res) => {
       .sort(sort)
       .limit(parseInt(limit))
       .skip(offset)
-      .explain("executionStats");
+      .explain("executionStats")
+    
 
     res.status(200).send({
       status: "success",
@@ -49,14 +51,16 @@ router.get("/search", async (req, res) => {
 });
 
 //vista productos handlebars, sin socketIo
- router.get("/", async (req, res) => {
-   try {
-     let products = await productManager.getProducts();
-     res.render("home", { products });
-   } catch (err) {
-     res.status(500).send(`Error: ${err}`);
-   }
- });
+//  router.get("/", async (req, res) => {
+
+
+//    try {
+//      let products = await productManager.getProducts();
+//      res.render("home", { products });
+//    } catch (err) {
+//      res.status(500).send(`Error: ${err}`);
+//    }
+//  });
 
  
 router.get("/realtimeproducts", async (req, res) => {
@@ -68,7 +72,7 @@ router.get("/realtimeproducts", async (req, res) => {
     res.status(500).send(`Error: ${err}`);
   }
 
-  //acá deberia usar el socket.emit
+ 
 });
 
 router.get("/chat", (req,res) =>{

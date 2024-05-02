@@ -30,6 +30,12 @@ app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 app.engine("handlebars", handlebars.engine());
 
+// Use routers/app.use("/products", routerProducts);
+app.use("/", viewsRouter);
+app.use("/cookies", cookiesRouter)
+app.use("/session", usersRouter)
+app.use("/api/products", routerProducts);
+app.use("/api/carts", routerCarts);
 
 //middlewares
 app.use(express.json());
@@ -69,12 +75,6 @@ app.use(session(
 ))
 
 
-// Use routers/app.use("/products", routerProducts);
-app.use("/", viewsRouter);
-app.use("/cookies", cookiesRouter)
-app.use("/session", usersRouter)
-app.use("/api/products", routerProducts);
-app.use("/api/carts", routerCarts);
 
 const environment = async () => {
   await mongoose.connect(

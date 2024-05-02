@@ -1,6 +1,7 @@
 //import productManager from "../dao/productManagerFS.js";
 import productManagerMDB from "../dao/productManagaerMDB.js";
 import { productsModel } from "../dao/models/productsModel.js";
+import  mongoosePaginate from "mongoose-paginate-v2";
 import express from "express";
 
 const productManager = new productManagerMDB();
@@ -8,15 +9,47 @@ const productManager = new productManagerMDB();
 const router = express.Router();
 
 //TRAER TODOS LOS PRODUCTOS // funciona ok
+//  router.get("/", async (req, res) => {
+//    try {
+//      let products = await productManager.getProducts();
+//      res.send(products);
+//    } catch (err) {
+//      console.log(err);
+//      res.status(500).send("Error interno del servidor");
+//    }
+//  });
+
+
+//pagination
+
 router.get("/", async (req, res) => {
+  let page = parseInt(req.query.page) || 1;
+
   try {
-    let products = await productManager.getProducts();
-    res.send(products);
+    const options = {
+      page: page,
+      limit: 2,
+      lean: true,
+    };
+
+    const result = await productsModel.paginate({}, options);
+
+    const baseURL = "http://localhost:8080/api/products";
+    const paginationData = {
+      title: "productos",
+      prevLink: result.hasPrevPage ? `${baseURL}?page=${result.prevPage}` : "",
+      nextLink: result.hasNextPage ? `${baseURL}?page=${result.nextPage}` : "",
+    };
+
+    res.render("home", { products: result.docs, paginationData });
   } catch (err) {
     console.log(err);
     res.status(500).send("Error interno del servidor");
   }
 });
+ 
+
+
 
 //TRAER POR ID ok // funciona ok
 router.get("/:pid", async (req, res) => {
@@ -37,12 +70,12 @@ router.get("/:pid", async (req, res) => {
 
 //AGREGAR UN PRODUCTO OK // funciona ok
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { title, description, code, price, stock, category, thumbnail } =
     req.body;
 
   try {
-    productManager.addProduct(
+    await productManager.addProduct(
       title,
       description,
       code,
@@ -54,7 +87,11 @@ router.post("/", (req, res) => {
     res.send("Producto agregado correctamente.");
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error interno del servidor");
+    if (err.message === "Ya existe un producto con el mismo título") {
+      res.status(400).json({ error: "Ya existe un producto con el mismo título" });
+    } else {
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
   }
 });
 

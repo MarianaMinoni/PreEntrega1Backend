@@ -35,6 +35,16 @@ class ProductManagerMDB {
   //METODO AGREGAR PRODUCTO A LA LISTA, CON VALIDACIONES - MONGO OK
   async addProduct(title,description, code,price, stock, category, thumbnail ) {
 
+   // Verifico si ya existe un producto con el mismo título
+  const existingProduct = await productsModel.findOne({ title: title });
+  //console.log(existingProduct);
+  if (existingProduct) {
+    
+    console.log("Ya existe un producto con el mismo título");
+    throw new Error("Ya existe un producto con el mismo título");
+  }
+
+
     if (!title || !description || !code || !price || !stock || !category) {
       console.log("todos los campos son obligatorios")}
 

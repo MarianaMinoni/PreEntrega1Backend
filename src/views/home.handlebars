@@ -15,6 +15,18 @@
 <br>
 <br>
   {{/each}}
-</div>
 
-<script src="/js/index.js>"></script>
+<div>
+      {{#if paginationData.prevLink}}
+         <a href="{{paginationData.prevLink}}">Anterior</a>
+      {{/if}}
+   </div>
+   <br>
+   <div>
+      {{#if paginationData.nextLink}}
+         <a href="{{paginationData.nextLink}}">Siguiente</a>
+      {{/if}}
+   </div>
+
+
+<script src="/js/index.js"></script>

@@ -1,8 +1,8 @@
-import cartManagerMDB from "../dao/cartManagerMDB.js";
+import CartManagerMDB from "../dao/cartManagerMDB.js";
 import express from "express";
 const router = express.Router();
 
-const cartManager = new cartManagerMDB();
+const cartManager = new CartManagerMDB();
 
 //TRAER TODOS LOS CARRITOS EXISTENTER // funciona ok
 
@@ -41,6 +41,22 @@ router.get("/:cid", async (req, res) => {
   }
 });
 
+
+//eliminar un carrito
+
+router.delete("/:cid", async (req, res) => {
+  const cartId = req.params.cid; // Obtener el ID del carrito de los parámetros de la URL
+
+  try {
+    // Llamar al método para eliminar el carrito por su ID
+    const deletedCart = await cartManager.removeCart(cartId);
+    res.json({ success: true, message: 'Carrito eliminado exitosamente', deletedCart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error al eliminar el carrito', error: error.message });
+  }
+});
+
 //funciona ok
 
 router.post("/:cid/product/:pid", async (req, res) => {
@@ -63,8 +79,8 @@ router.post("/:cid/product/:pid", async (req, res) => {
 });
 
 
-
-  router.delete("/:cid/products/:pid", async (req, res) => {
+//eliminar producto de un carrito
+  router.delete("/:cid/product/:pid", async (req, res) => {
     try {
       const cartId = req.params.cid
       const productId = req.params.pid

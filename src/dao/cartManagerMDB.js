@@ -1,5 +1,6 @@
 import { cartsModel } from "./models/cartsModels.js";
 import { productsModel } from "./models/productsModel.js";
+import mongoose from "mongoose"
 
 class CartManagerMDB {
   constructor(path) {
@@ -88,20 +89,52 @@ class CartManagerMDB {
     }
 
 
+    async removeCart(cartId) {
+      try {
+        // Buscar el carrito por su ID
+        const cart = await cartsModel.findById({_id: cartId});
+        if (!cart) {
+          throw new Error("Carrito no encontrado");
+        }
+    
+        // Eliminar el carrito de la base de datos
+        await cartsModel.findByIdAndDelete(cartId);
+    
+        return cart; // Devolver el carrito eliminado
+      } catch (error) {
+        console.error(error);
+        throw new Error("Error al eliminar el carrito");
+      }
+    }
+
+
 async removeProductFromCart(cartId, productId) {
+
+
   try {
-      const cart = await cartsModel.findOne({_id: cartId});
+      const cart = await cartsModel.findOne({_id: cartId}); // aca me traigo el carrito
       if (!cart) {
         throw new Error("Carrito no encontrado");
       }
 
-      const productIndex = cart.products.findIndex(product => product.product === productId);
+      // ok encontrando el carrito
+
+
+      const productIdString =  new mongoose.Types.ObjectId(productId).toString();
+
+      
+
+
+      const productIndex = cart.products.findIndex(product => product.product.toString() === productIdString);
+      console.log(productIndex);
       if (productIndex === -1) {
         throw new Error("Producto no encontrado en el carrito");
       }
 
+
       cart.products.splice(productIndex, 1);
       await cart.save();
+
   } catch (error) {
       console.error(error);
       throw new Error("Error al eliminar el producto del carrito");
