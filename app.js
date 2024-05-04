@@ -13,6 +13,7 @@ import session from "express-session";
 //import fileStore from  "session-file-store"
 import mongoStore from "connect-mongo";
 import ProductManagerMDB from "./src/dao/productManagaerMDB.js";
+import bodyParser from "body-parser";
 
 const productManager = new ProductManagerMDB();
 
@@ -21,9 +22,12 @@ const productManager = new ProductManagerMDB();
 const app = express();
 const port = 8080;
 
+
 const httpServer = app.listen(port, () => console.log("servidor funcionando"));
 
 const io = new Server(httpServer);
+
+const uri = "mongodb://localhost:27017/users"
 
 app.set("views", __dirname + "/src/views");
 app.set("view engine", "handlebars");
@@ -34,7 +38,7 @@ app.use(session(
         store : mongoStore.create(
       {
         //aca va el connection string
-        mongoUrl : "mongodb://localhost:27017/users",
+        mongoUrl : uri,
         mongoOptions: {
            useUnifiedTopology: true,
         },
@@ -53,7 +57,7 @@ app.use(session(
 // Use routers/app.use("/products", routerProducts);
 app.use("/", viewsRouter);
 app.use("/cookies", cookiesRouter)
-app.use("/session", usersRouter)
+app.use("/api/session", usersRouter)
 app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
 
@@ -61,19 +65,20 @@ app.use("/api/carts", routerCarts);
 
 
 const environment = async () => {
-  await mongoose.connect(
-    "mongodb+srv://dbAdmin:dbAdmin@cluster0.b4sydgr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    { dbName: "ecommerce" }
-  );
+  await mongoose.connect(uri)
   console.log("conectado a la base remota de datos");
 };
 
 environment();
 
+
+
 //middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+//app.use(express.json());
+//app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser("marian"))
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
 
@@ -144,13 +149,13 @@ io.on("connection", (socket) => {
 
   //chat
   socket.on("message", data => {
-    console.log(data);
+   
     io.emit("messageShow", data) //Emito para todos los usuarios lo que se esta escribiendo
 });
 
 
 socket.on("chatMessage", data => {
-    console.log(data);
+    
     messages.push({
         socketId: socket.id,
         message: data

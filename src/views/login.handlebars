@@ -1,0 +1,29 @@
+
+<div>
+<h3>Ingrese sus datos para loguearse</h3>
+
+   <form id="userForm" method="post" action="/api/session/login" >
+  
+    <div class="m-3">
+        <label for="email" class="form-label">Mail</label>
+        <input type="mail" class="form-control" id="email" name="email">
+    </div>
+
+      <div class="m-3">
+        <label for="password" class="form-label">password </label>
+        <input type="password" class="form-control" id="password" name="password">
+    </div>
+   
+ 
+    <button type="submit" class="btn btn-secondary m-3">Ingresar</button>
+</form>
+<span><a href="/register" target="_self" class="btn btn-secondary m-3"> Registrarse</a></span>
+
+</div>
+
+{{#if failLogin}}
+<script type="text/javascript">
+alert("login failed")
+</script>
+{{/if}}
+

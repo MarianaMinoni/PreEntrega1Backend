@@ -76,12 +76,35 @@ router.get("/realtimeproducts", async (req, res) => {
 });
 
 router.get("/chat", (req,res) =>{
-  res.render("chat" )
+  res.render("chat", {
+    style: "index.css"
+  } )
 
 })
 
-router.get("/register" , (req,res) => {
-  res.render("users")
-})
+router.get("/login", (req, res) => {
+
+  res.render(
+      'login',
+      {
+         
+          failLogin: req.session.failLogin ?? false
+      }
+  )
+});
+
+router.get("/register", (req, res) => {
+
+  res.render(
+      'register',
+      {
+        
+          failRegister: req.session.failRegister ?? false
+      }
+     
+    )
+});
+
+
 
 export default router;

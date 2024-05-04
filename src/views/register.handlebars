@@ -1,0 +1,46 @@
+<div>
+
+
+<h3>Ingrese sus datos para Registrarse</h3>
+
+   <form id="registerForm" method="post" action="/api/session/register" >
+    <div class="m-3">
+        <label for="first_name" class="form-label">Nombre </label>
+        <input type="text" class="form-control" id="first_name" name="first_name">
+    </div>
+     <div class="m-3">
+        <label for="last_name" class="form-label">Apellido </label>
+        <input type="text" class="form-control" id="last_name" name="last_name">
+    </div>
+    <div class="m-3">
+        <label for="email" class="form-label">Mail</label>
+        <input type="email" class="form-control" id="email" name="email">
+    </div>
+    <div class="m-3">
+        <label for="age" class="form-label">Edad</label>
+        <input type="number" class="form-control" id="age" name="age">
+    </div>
+    <div class="m-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" name="password">
+    </div>
+   
+ 
+    <button type="submit" class="btn btn-secondary m-3">Registrarse</button>
+</form>
+
+<span><a href="/login" target="_self" class="btn btn-secondary m-3"> Login</a></span>
+
+</div>
+
+
+
+
+</div>
+
+{{#if failRegister}}
+<script type="text/javascript">
+alert("register failed")
+</script>
+{{/if}}
+
